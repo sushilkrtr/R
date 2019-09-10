@@ -1,0 +1,60 @@
+---
+title: "Assignment3"
+author: "Sushil"
+date: "10/09/2019"
+output: html_document
+---
+1.	Consider following datasets and conduct detailed analysis on it. You may go through the help pages of these datasets to know more information about it.
+1.	Airquality
+2.	USArrests
+3.	Mtcars
+4.	ToothGrowth
+5.	Iris 
+Capture your commands and write brief explanation on each observation you find.
+
+```{r }
+airquality
+names(airquality)
+summary(airquality)
+hist(airquality$Ozone)
+boxplot(airquality$Ozone)
+plot(airquality$Ozone)
+```
+```{r}
+USArrests
+names(USArrests)
+summary(USArrests)
+hist(USArrests$Murder)
+boxplot(USArrests$Murder)
+plot(USArrests$Murder)
+
+```
+
+```{r Mtcars}
+mtcars
+names(mtcars)
+summary(mtcars)
+hist(mtcars$cyl)
+boxplot(mtcars$cyl)
+plot(mtcars$cyl)
+
+```
+```{r toothgrowth}
+ToothGrowth
+names(ToothGrowth)
+summary(ToothGrowth)
+hist(ToothGrowth$dose)
+boxplot(ToothGrowth$dose)
+plot(ToothGrowth$dose)
+```
+
+```{r Iris}
+iris
+names(iris)
+summary(iris)
+hist(iris$Petal.Width)
+boxplot(iris$Petal.Width)
+plot(iris$Petal.Width)
+
+```
+

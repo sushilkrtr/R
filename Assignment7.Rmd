@@ -1,0 +1,67 @@
+---
+title: "Assignment7"
+author: "Sushil54_Sharad_43"
+date: "9/12/2019"
+output: html_document
+---
+1. Create a R function to calculate the standard deviation.
+Function should take single integer vector as an argument.
+Give the name of function as StDev()
+```{r}
+StDev<-function(z)
+{
+ table<-sd(z)
+ res<-paste(table,sep="")
+ return(res)
+}
+sd(c(25,34,12,67,54))
+```
+2. Create a R function to calculate the standard deviation.
+Function should take integer vector as first argument and for second argument use "FUN" and assign sd() function to it.
+Give the name of function as StDev1()
+```{r}
+FUN<-StDev
+StDev1<-function(z,FUN)
+{
+ table<-sd(z,FUN())
+ res<-paste(table,sep="")
+ return(res)
+}
+sd(c(25,34,12,67,54))
+```
+3. Create a function to calculate the running average of integer vector.
+Give the function name as RunAvg()
+```{r}
+RunAvg<-function(s)
+{
+table<-mean(s)
+res<-paste(table,sep="")
+return(res)
+}
+RunAvg(c(23,34,45,323212,45))
+```
+4. The below given code takes n number of integers as arguments and calculates the sum of it 
+
+```{r}
+Sumall <- function(...)
+{ arguments <- list(...) 
+result=paste(arguments) 
+sum(as.integer(result))
+}
+Sumall(45,98,104,8677)
+```
+5.The below given code n number of objects as arguments.
+
+```{r}
+s<-34
+d<-c(34,90,78,56)
+f<-34
+Obj <- function(...) 
+{
+arguments <- c(...) 
+result=paste(arguments) 
+return(as.data.frame(result))
+}
+Obj(s,d,f)
+```
+

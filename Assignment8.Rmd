@@ -1,0 +1,56 @@
+---
+title: "Assignment8"
+author: "Sushil54_Sharad_43"
+date: "9/12/2019"
+output: html_document
+---
+1.	Import the dataset (male_names.csv) and find the frequency of name "GRANT" using visualization.
+Make use of all possible arguments in the function you use (For example: xlab, ylab, main, type etc)
+```{r GraphicalAnalysis}
+w<-read.csv("male_names.csv")
+names(w)
+male_name<-data.frame(w)
+male_name
+r<-which(male_name$Name=="GRANT")
+r
+year=male_name[r,1]
+year
+freq=male_name[r,3]
+freq
+boxplot(year,freq,xlab="YEAR",ylab = "FREQUENCY")
+plot(year,freq,xlab="YEAR",ylab = "FREQUENCY")
+barplot(year,freq,xlab="YEAR",ylab = "FREQUENCY")
+```
+2.	Import student dataset (StudentsMarks.csv), by graphical analysis find out which student has got zero mark in one of the subjects.
+```{r}
+q<-read.csv("StudentsMarks.csv")
+q
+
+names(q)
+r<-which(q$Marks==0)
+r
+zero=q[r,1]
+nostu=q[r,2]
+plot(nostu,zero,xlab="ZERO_MARKS",ylab = "NO.OF STUDENTS")
+```
+3.	Import Environment data. Make a well labeled graph to see a relation between the variables.
+Explain your reasoning 
+```{r}
+q<-read.csv("Environment.csv")
+q
+names(q)
+nocs=q[,1]
+nocr=q[,2]
+plot(nocs,nocr,xlab="No. of cans sold",ylab = "No. of cans Recycled")
+```
+4.	Import Climate data and visualize the parameters from col4 to col8 and explain your reasoning
+```{r}
+w<-read.table("weather.txt",header = T)
+w
+d<-data.frame(w)
+d
+f<-d[,4:8]
+f
+plot(d[,4:8])
+
+```

@@ -1,0 +1,345 @@
+---
+title: "Assignment5"
+author: "Sushil54_Sharad_43"
+date: "9/11/2019"
+output: html_document
+---
+1. Import the ClinicalTrail dataset (data is shared) and find the following details.
+After importing go through the dataset and see all column names.
+i. How many subjects (patients) are enrolled at each center in a clinical trial.
+```{r }
+ClinicalTrail1<-read.table("ClinicalTrail.txt")
+ClinicalTrail1
+colnames(ClinicalTrail1)
+```
+ii. How many subjects (patients) are under the age of 60 in a clinical trial.
+```{r}
+ClinicalTrail1
+table(ClinicalTrail1$age<60)
+```
+iii. Which center has the most subjects with a missing value for age in the clinical trial?
+```{r}
+ table(ClinicalTrail1$center, is.na(ClinicalTrail1$age))
+```
+2. Import dataset access_log file (file is shared) and in to R. Import only Date, Month, Year, Hours, Min and Seconds columns
+```{r}
+a<-read.fwf("error_log",widths =c(-5,3,-1,2,-1,2,-1,2,-1,2,-1,4),col.names = c("month","date","hours","min","sec","year"))
+print(a)
+```
+3. Import input.json file (file is shared) into R and convert it into dataframe and store it in object.
+
+```{r}
+
+library(rjson)
+rt<-fromJSON(file = "Datasets/input.json")
+rtDF<-as.data.frame(rt)
+rtDF
+```
+i. Extract the names whose salary is less than 500.
+```{r}
+e<-as.numeric(as.character(rtDF$Salary))
+#table(rtDF$Name,(e<500))
+e
+```
+ii. Extract employee information whose salary is less than 800 and working in IT and Operations Dept.
+```{r}
+s<-as.character(rtDF$Dept)
+s
+table(rtDF$Name,e<=800&(s=="IT"|s=="Operations"))
+
+```
+
+5. Consider a dataset iris (in-built dataset) and store it in different object.
+Find the following details.
+
+```{r}
+irisdataset=iris
+irisdataset
+
+
+```
+i. How many variety of species are there and at frequency those species are appearing the dataset. (use table() funtion)
+```{r}
+table(irisdataset$Species)
+
+```
+ii. Find the species name whose "Sepal.Length" is equal to 6.9 and at what frequency those species are appearing in the dataset.
+
+```{r}
+table(irisdataset$Species,irisdataset$Sepal.Length==6.9)
+
+```
+6. Consider a dataset mtcars (in-built dataset) and store it in different object. Second column in the dataset is "mpg" which is Miles/(US) gallon
+Add an extra column called "Condition" to the mtcars and fill the values as follows (Example is shown below)
+i. Multiply mpg and cyl
+
+```{r}
+
+mt<-mtcars
+dim(mt)
+mt$condition=mt$mpg*mt$cyl
+mt
+dim(mt)
+```
+8. After adding an extra column, export it to local drive in both csv and text files
+
+```{r}
+
+write.csv(mt,file="Datasets/mt.csv")
+
+write.table(mt,file="Datasets/mt.txt",sep="\t")
+
+```
+
+9. Import dataset bnames2 (dataset is shared), which consists of top 1000 male and female baby names in US from 1800 to 2008. Dataset is 258000 rows and 5 columns.
+This dataset is in ZIP file. Read the ZIP data into R. You can use read.csv function to read zip file also.
+
+```{r}
+bname2=read.csv(file = "Datasets/bnames2.csv.bz2")
+bname2
+
+```
+
+How many times name "Greg" has appeared in the given dataset.
+ii. How many times name "John" has appeared from years 1880-2000.
+
+
+
+```{r}
+name<-as.character(bname2$name)
+table(name=="Greg")
+
+
+table(name=="John"& bname2$year>=1880 & bname2$year<=2000)
+
+
+```
+iii. In which year was your name most popular? Least popular
+
+```{r}
+john<-subset(bname2,name=="John")
+obj=subset(john,table(john$year)==min(table(john$year)))
+obj
+obj1=subset(john,table(john$year)==max(table(john$year)))
+obj1
+
+```
+
+10. Create the following dataframes (Dataframe 1, Dataframe 2) as shown below. You can copy and paste the commands on R console
+
+```{r}
+Died.At <- c(22,40,72,41) 
+Writer.At <- c(16, 18, 36, 36) 
+First.Name <- c("John", "Edgar", "Walt", "Jane") 
+Second.Name <- c("Doe", "Poe", "Whitman", "Austen") 
+Sex <- c("MALE", "MALE", "MALE", "FEMALE") 
+Date.Of.Death <- c("2015-05-10", "1849-10-07", "1892-03-26","1817-07-18")
+writers_df <- data.frame(Died.At, Writer.At, First.Name, Second.Name, Sex, Date.Of.Death)
+writers_df
+
+
+data2 <- data.frame(Age.At.Death=c(22,40,72,41), Location=5:8)
+data2
+```
+11. Extract the names of Dataframe 1 and Dataframe 2 created in the previous question. Output will be as follows
+[1] "Died.At" "Writer.At" "First.Name" "Second.Name"
+[5] "Sex" "Date.Of.Death"
+
+
+```{r}
+
+colnames(writers_df)
+colnames(data2)
+
+
+```
+12. Change the names of Dataframe 1. Output should be as follows. (Use indexing). Here we are changing the column name in order to make column names same in both the vector.
+[1] "Age.At.Death" "Writer.At" "First.Name" "Surname"
+[5] "Gender" "Date.Of.Death"
+
+```{r}
+
+colnames(writers_df)[1]<-"Age.At.Death"
+colnames(writers_df)[4]<-"surname"
+colnames(writers_df)[5]<-"gender"
+writers_df
+
+colnames(data2)[2]<-"address"
+data2
+
+
+
+```
+13. We can also merge the dataframes without changing the column name also. Command is shown as follows
+merge(writers_df, data2, by.x="Age.At.Death", by.y="Age")
+
+```{r}
+merge(writers_df,data2)
+
+```
+14. Write a command to merge the above two dataframes. Use by.x and by.y arguments separately and check the output
+
+```{r}
+merge(writers_df,data2, by.x="Age.At.Death")
+
+
+
+```
+
+15. Reduce the age by 1 in each row of Dataframe 1
+```{r}
+writers_df$Age.At.Death<-writers_df$Age.At.Death-1
+writers_df
+```
+16. Add the extra column to the Dataframe 1. Column name should be ID and the values are 1:4
+
+```{r}
+writers_df$ID=c(1:4)
+writers_df
+
+
+```
+17. Change any one value of Age.At.Death in one of the dataframe and trying to merge command and check the output.
+
+```{r}
+writers_df$Age.At.Death[1]=23
+writers_df
+
+merge(writers_df,data2, by.x = "Age.At.Death")
+
+```
+
+18. Try the merge command on the datasets created with the argument all.x=TRUE and all.y=TRUE and check the output
+
+```{r}
+
+merge(writers_df,data2,all.x = TRUE,all.y = TRUE)
+
+```
+19. Create the following dataframe.
+
+Address <- c("50 West 10th", "77 St. Marks Place", "778 Park Avenue") Maried <- c("YES", "NO", "YES") limited_writers_df <- data.frame(Address, Maried) limited_writers_df
+
+```{r}
+Address <- c("50 West 10th", "77 St. Marks Place", "778 Park Avenue") 
+Maried <- c("YES", "NO", "YES") 
+limited_writers_df <- data.frame(Address, Maried)
+limited_writers_df
+```
+20.Apply the merge function on "writers_df" and "limited_writers_df" datasets and check the output. To merge rows, use by=0 argument.
+```{r}
+
+merge(writers_df,limited_writers_df,by=0)
+
+```
+21.
+Create the following dataframe. You can copy paste the commands on R console
+
+```{r}
+fy <- c(2010,2011,2012,2010,2011,2012,2010,2011,2012) 
+company <-c("Apple","Apple","Apple","Google","Google","Google","Microsoft","Microsoft","Microsoft")
+revenue <- c(65225,108249,156508,29321,37905,50175,62484,69943,73723) 
+profit <- c(14013,25922,41733,8505,9737,10737,18760,23150,16978) 
+companiesData<- data.frame(fy, company, revenue, profit)
+```
+
+Find the following:
+i. Transform the data by adding an extra column Margin (You have to frame a formula how margin is calculated)
+
+```{r}
+
+companiesData$margin1<-companiesData$revenue-companiesData$profit
+companiesData
+```
+ii. Find which company is having highest margin
+```{r}
+obj<-companiesData$margin1
+obj2<-max(obj)
+obj2
+obj3<-subset(companiesData,companiesData$margin1==obj2)
+obj3
+```
+
+iii. Find which company is having lowest margin
+```{r}
+
+obj<-companiesData$margin1
+obj4<-min(obj)
+obj4
+obj5<-subset(companiesData,companiesData$margin1==obj4)
+obj5
+
+```
+
+21. Create the following data frame. You can copy and paste the commands
+Subject <- c(1,2,1,2,2,1) Gender <- c("M", "F", "M", "F", "F","M") Test <- c("Read", "Write", "Write", "Listen", "Read", "Listen") Result <- c(10, 4, 8, 6, 7, 7)
+```{r}
+Subject <- c(1,2,1,2,2,1)
+Gender <- c("M", "F", "M", "F", "F","M")
+Test <- c("Read", "Write", "Write", "Listen", "Read", "Listen")
+Result <- c(10, 4, 8, 6, 7, 7)
+observations_long <- data.frame(Subject, Gender, Test, Result)
+observations_long
+
+```
+Convert the above data as shown below
+Subject Gender Listen Read Write
+1 M 7 10 8
+2 F 6 7 4
+```{r}
+library(reshape2)
+obj22<-dcast(observations_long,Subject+Gender~Test)
+obj22
+
+```
+22. Import the Pew dataset (It is shared) in table format and go through the data. This dataset is not ready for analysis, columns are of same variables("Income").
+Note: After reshaping the dataset, save the output in different object
+```{r}
+library(tidyr)
+library(reshape2)
+
+pewdata<-read.table(file="D:/DBDA14/R/Day5/Datasets/pew.txt")
+names(pewdata)
+
+
+pewdata[1,]<-colnames(pewdata)<-c("religion", "10k" ,"10-20k" ,"20-30k", "30-40k",
+ "40-50k" ,"50-75k" ,"75-100k" ,"100-150k" ,"150k"
+ ,"Don.t.know.refused")
+pewdata[2:length(pewdata$religion),]
+
+melt(pewdata,id.vars = c("religion"),measure.vars=c("10k" ,"10-20k" ,"20-30k", "30-40k",
+ "40-50k" ,"50-75k" ,"75-100k" ,"100-150k" ,"150k"
+ ),variable.name = "Income",value.name="Income_value")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,80 @@
+---
+title: "Assignment66"
+author: "Sushil54_Sharad_43"
+date: "9/13/2019"
+output: html_document
+---
+
+---
+title: "Assignment6"
+author: "Sushil54_Sharad43"
+date: "9/12/2019"
+output: html_document
+---
+```{r }
+library(tidyr)
+mydata=read.csv(file="Datasets/sampledata.csv")
+mydata
+mydata1=gather(mydata ,"Year","Values",3:16)
+mydata1
+mydata2=spread(mydata1,"Year","Values")
+mydata2
+```
+2.Import cases dataset and arrange all the values of year's (2011,2012,2013) in a new column (we call it as key) and its corresponding values. (refer Presentation)
+```{r}
+mycases=read.table(file="Datasets/cases.txt")
+colnames(mycases)<-c("country","2011","2012","2013")
+mycases1=mycases[2:length(mycases$country),]
+mydata3=gather(mycases1,"key","value",2:4)
+mydata3
+```
+3. Import the pollution data and re-arrange the values from the second and third column. (refer Presentation)
+4.
+```{r}
+library(dplyr)
+mypoll=read.table(file = "Datasets/pollution.txt",sep="\t")
+colnames(mypoll)<-c("city","size","amount")
+mypoll1<-mypoll[2:length(mypoll$city),]
+mypoll1
+a1=arrange(mypoll1,size,amount)
+a1
+```
+4. Consider the TB dataset. Dataset name is "TB_burden_countries_2016-02-27" (dataset is shared) and metadata of this dataset is also shared (TB_data_dictionary_2016-02-27). You don't have to import metadata file.
+```{r}
+library(dplyr)
+myfile1=read.csv(file = "Datasets/TB_burden_countries_2016-02-27.csv",header=T)
+myfile1
+```
+ii. Find the dimensions of the data, rownames, columnanes of the dataset and note the observations.
+```{r}
+dim(myfile1)
+head(rownames(myfile1))
+colnames(myfile1)
+```
+
+iii. Find in which year and in which country, estimated number of incident cases are more? (You can see the exact column name of " estimated number of incident cases " from the metadata file)
+```{r}
+rowindex<-which(myfile1$e_inc_num==max(myfile1$e_inc_num))
+
+myfile1[rowindex,c(1,6,32)]
+```
+Import the datasets and try all the functions of dplyr package that are shown in the presentation
+```{r}
+options(repos=c(CRAN="http://cran.rstudio.com"))
+library(dplyr)
+library(tidyr)
+mydata=read.csv(file = "Datasets/sampledata.csv")
+
+obj51 = select(mydata, Index, State:Y2008)
+obj51
+obj52=filter(mydata, Index == "A")
+obj52
+arrange1=arrange(mydata, Index, Y2011)
+arrange1
+GroupedData = group_by(mydata, Index)
+GroupedData
+summarise(mydata, Y2015_mean = mean(Y2015), Y2015_median = median(Y2015))
+My_mutate = mutate(mydata, change=Y2015/Y2014)
+My_mutate
+```
+

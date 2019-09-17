@@ -1,0 +1,125 @@
+---
+title: "Exercise4"
+author: "Sushil54_Sharad43"
+date: "9/10/2019"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+Q1. Write a R program to find the factorial of given number.
+```{r}
+fact=1
+for(i in 1:5){
+  fact=fact*i
+}
+print(fact)
+
+```
+
+Q2 Marks vector
+```{r}
+Marks<-c(30,35,38,50,57,68,76,23,60,8,45)
+
+
+for(i in 1:length(Marks))
+{
+  if(Marks[i]>=40)
+  {
+    print(Marks[i])
+    print('pass')
+  }
+  else
+  {
+    print(Marks[i])
+    print('fail')
+  }
+}
+```
+
+Q3
+```{r}
+Marks<-c(1:5)
+
+sum=0
+pro=1
+for(i in 1:length(Marks))
+{
+  sum=sum+Marks[i]
+  pro=pro*Marks[i]
+  
+}
+msg<-sprintf("value of Csum is : %d\n", sum) 
+cat(msg)
+msg<-sprintf("value of Cproduct is : %d\n", pro) 
+cat(msg)
+```
+Q4 matrix initiallisation
+```{r}
+mymat=matrix(nrow=4,ncol=2)
+for(i in 1:dim(mymat)[1])
+{
+  for(j in 1:dim(mymat)[2])
+  {
+    mymat[i,j]= i*j
+  }
+}
+mymat
+```
+
+Q6 matrix diagonal
+```{r}
+a=c()
+mymat=matrix(1:16,nrow=4,ncol=4)
+for(i in 1:dim(mymat)[1])
+{
+  for(j in 1:dim(mymat)[2])
+  {
+    if(i==j)
+    {
+     a=c(a,mymat[i,j])
+    }
+  }
+}
+mymat
+a
+```
+Q7
+```{r}
+mymat3=matrix(nrow=4,ncol=4)
+mymat2=matrix(1:16,nrow=4,ncol=4)
+mymat=matrix(1:16,nrow=4,ncol=4)
+for(i in 1:dim(mymat)[1])
+{
+  for(j in 1:dim(mymat)[2])
+  {
+    
+    mymat3[i,j]=mymat[i,j]*mymat2[i,j]
+  }
+}
+mymat3
+```
+Q8
+```{r}
+b<-c()
+a<-c(sample(250:500,250))
+for(i in 1:250)
+{
+  if(i%%2!=0)
+  {
+    b<-c(b,a[i])
+  }
+}
+
+sum=0
+for(i in 1:length(b))
+{
+  sum=sum+b[i]
+}
+msg<-sprintf("sum is %d\n",sum)
+cat(msg)
+mean1=sum/length(b)
+msg1<-sprintf("Mean is %f\n",mean1)
+cat(msg1)
+```
+
